@@ -4,13 +4,6 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace CustomerOrderManagement.API.Filters;
 
-/// <summary>
-/// Runs the FluentValidation validator registered for each action argument's
-/// type (if any) before the action executes, and short-circuits with the
-/// standard <see cref="ValidationProblemDetails"/> 400 response on failure —
-/// the FluentValidation equivalent of the automatic DataAnnotations model
-/// validation that <c>[ApiController]</c> performs out of the box.
-/// </summary>
 public sealed class FluentValidationFilter : IAsyncActionFilter
 {
     private readonly IServiceProvider _serviceProvider;

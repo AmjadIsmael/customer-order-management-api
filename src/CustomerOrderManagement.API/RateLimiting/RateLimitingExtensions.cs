@@ -25,7 +25,6 @@ public static class RateLimitingExtensions
                     GetClientKey(context),
                     _ => ToFixedWindowOptions(settings.Global)));
 
-            // Stricter policy for the login endpoint to slow down credential-stuffing/brute-force attempts.
             options.AddPolicy(AuthPolicyName, context =>
                 RateLimitPartition.GetFixedWindowLimiter(
                     GetClientKey(context),
