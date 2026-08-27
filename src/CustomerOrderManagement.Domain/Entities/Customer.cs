@@ -1,8 +1,5 @@
 ﻿using CustomerOrderManagement.Domain.Common;
 using CustomerOrderManagement.Domain.Enums;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CustomerOrderManagement.Domain.Entities;
 
@@ -21,5 +18,8 @@ public sealed class Customer : BaseEntity
     public int? Age { get; set; }
 
     public Gender Gender { get; set; } = Gender.Unspecified;
-}
 
+    public ICollection<Order> Orders { get; set; } = [];
+
+    public User? User { get; set; }
+}

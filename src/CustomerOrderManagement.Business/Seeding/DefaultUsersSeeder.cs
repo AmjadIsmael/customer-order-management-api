@@ -7,11 +7,6 @@ using Microsoft.Extensions.Logging;
 
 namespace CustomerOrderManagement.Business.Seeding;
 
-/// <summary>
-/// Ensures a small set of default accounts exist — one per role — so the
-/// login endpoint and role-based authorization can be exercised locally.
-/// Intended for development environments only.
-/// </summary>
 public static class DefaultUsersSeeder
 {
     private const string SystemUser = "system";

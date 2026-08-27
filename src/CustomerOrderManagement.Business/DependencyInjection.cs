@@ -21,11 +21,16 @@ public static class DependencyInjection
 
         services.AddScoped<ICustomerService, CustomerService>();
         services.AddScoped<IAuthService, AuthService>();
+        services.AddScoped<IProductService, ProductService>();
+        services.AddScoped<IOrderService, OrderService>();
+
 
         services.AddSingleton<IPasswordHasher<User>, PasswordHasher<User>>();
         services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
 
+
         services.AddValidatorsFromAssemblyContaining<CustomerCreateDtoValidator>();
+
 
         return services;
     }

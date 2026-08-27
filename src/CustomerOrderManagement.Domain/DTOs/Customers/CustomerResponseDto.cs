@@ -2,6 +2,9 @@ using CustomerOrderManagement.Domain.Enums;
 
 namespace CustomerOrderManagement.Domain.DTOs.Customers;
 
+/// <summary>
+/// A customer as returned by the API.
+/// </summary>
 public sealed class CustomerResponseDto
 {
     public Guid Id { get; set; }

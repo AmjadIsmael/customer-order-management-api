@@ -12,4 +12,8 @@ public sealed class User : BaseEntity
     public string PasswordHash { get; set; } = string.Empty;
 
     public UserRole Role { get; set; } = UserRole.User;
+
+    public Guid? CustomerId { get; set; }
+
+    public Customer? Customer { get; set; }
 }

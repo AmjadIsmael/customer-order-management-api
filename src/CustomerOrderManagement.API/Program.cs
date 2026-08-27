@@ -2,6 +2,7 @@ using System.Text;
 using Asp.Versioning;
 using CustomerOrderManagement.API.Authorization;
 using CustomerOrderManagement.API.Filters;
+using CustomerOrderManagement.API.Jobs;
 using CustomerOrderManagement.API.Middleware;
 using CustomerOrderManagement.API.RateLimiting;
 using CustomerOrderManagement.Business;
@@ -27,6 +28,7 @@ builder.Services.AddBusiness(builder.Configuration);
 builder.Services.AddControllers(options => options.Filters.Add<FluentValidationFilter>());
 
 builder.Services.AddApiRateLimiting(builder.Configuration);
+builder.Services.AddApplicationJobs(builder.Configuration);
 
 var jwtSettings = builder.Configuration.GetSection(JwtSettings.SectionName).Get<JwtSettings>()
     ?? throw new InvalidOperationException("The Jwt configuration section was not found.");
@@ -73,7 +75,27 @@ builder.Services.AddSwaggerGen(options =>
     {
         Title = "Customer Order Management API",
         Version = "v1",
-        Description = "API for managing customers and orders.",
+        Description = "API for managing customers, products and orders.",
+    });
+
+    options.IncludeXmlComments(
+        Path.Combine(AppContext.BaseDirectory, "CustomerOrderManagement.API.xml"));
+    options.IncludeXmlComments(
+        Path.Combine(AppContext.BaseDirectory, "CustomerOrderManagement.Domain.xml"));
+
+    const string bearerScheme = "Bearer";
+    options.AddSecurityDefinition(bearerScheme, new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        Scheme = bearerScheme,
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "Paste the access token returned by POST /api/v1/auth/login (no \"Bearer \" prefix needed).",
+    });
+    options.AddSecurityRequirement(document => new OpenApiSecurityRequirement
+    {
+        { new OpenApiSecuritySchemeReference(bearerScheme, document), [] },
     });
 });
 

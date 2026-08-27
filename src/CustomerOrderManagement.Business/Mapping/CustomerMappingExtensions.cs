@@ -14,6 +14,7 @@ public static partial class CustomerMappingExtensions
     [MapperIgnoreTarget(nameof(Customer.UpdatedBy))]
     [MapperIgnoreTarget(nameof(Customer.IsActive))]
     [MapperIgnoreTarget(nameof(Customer.IsDeleted))]
+    [MapperIgnoreTarget(nameof(Customer.Orders))]
     public static partial Customer ToEntity(this CustomerCreateDto dto);
 
     [MapperIgnoreTarget(nameof(Customer.Id))]
@@ -23,8 +24,10 @@ public static partial class CustomerMappingExtensions
     [MapperIgnoreTarget(nameof(Customer.UpdatedBy))]
     [MapperIgnoreTarget(nameof(Customer.IsActive))]
     [MapperIgnoreTarget(nameof(Customer.IsDeleted))]
+    [MapperIgnoreTarget(nameof(Customer.Orders))]
     public static partial void ApplyTo(this CustomerUpdateDto dto, Customer customer);
 
     [MapperIgnoreSource(nameof(Customer.IsDeleted))]
+    [MapperIgnoreSource(nameof(Customer.Orders))]
     public static partial CustomerResponseDto ToResponseDto(this Customer customer);
 }

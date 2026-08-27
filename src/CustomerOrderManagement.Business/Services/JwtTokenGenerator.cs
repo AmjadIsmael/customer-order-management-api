@@ -29,8 +29,7 @@ public sealed class JwtTokenGenerator : IJwtTokenGenerator
 
         var expiresAtUtc = DateTime.UtcNow.AddMinutes(_settings.ExpiryMinutes);
 
-        // Identity claims only — never the password or its hash.
-        Claim[] claims =
+        List<Claim> claims =
         [
             new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
             new Claim(ClaimTypes.Name, user.Username),
@@ -38,6 +37,11 @@ public sealed class JwtTokenGenerator : IJwtTokenGenerator
             new Claim(ClaimTypes.Role, user.Role.ToString()),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
         ];
+
+        if (user.CustomerId.HasValue)
+        {
+            claims.Add(new Claim(CustomClaimTypes.CustomerId, user.CustomerId.Value.ToString()));
+        }
 
         var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_settings.Key));
         var signingCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256);

@@ -80,7 +80,6 @@ public sealed class CustomerService : ICustomerService
         customer.UpdatedDate = DateTime.UtcNow;
         customer.UpdatedBy = SystemUser;
 
-        _unitOfWork.Customers.Update(customer);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
         return customer.ToResponseDto();
@@ -98,7 +97,6 @@ public sealed class CustomerService : ICustomerService
         customer.UpdatedDate = DateTime.UtcNow;
         customer.UpdatedBy = SystemUser;
 
-        _unitOfWork.Customers.Update(customer);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
     }
 }

@@ -2,6 +2,9 @@ using CustomerOrderManagement.Domain.Enums;
 
 namespace CustomerOrderManagement.Domain.DTOs.Customers;
 
+/// <summary>
+/// The details required to create a new customer.
+/// </summary>
 public sealed class CustomerCreateDto
 {
     public string FirstName { get; set; } = string.Empty;
